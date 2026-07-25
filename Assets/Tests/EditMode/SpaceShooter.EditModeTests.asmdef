@@ -2,20 +2,24 @@
     "name": "SpaceShooter.EditModeTests",
     "rootNamespace": "",
     "references": [
-        "SpaceShooter.Runtime"
+        "SpaceShooter.Runtime",
+        "UnityEngine.TestRunner",
+        "UnityEditor.TestRunner"
     ],
     "includePlatforms": [
-        "Editor"
+        "Editor",
+        "WebGL"
     ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
-    "overrideReferences": false,
-    "precompiledReferences": [],
-    "autoReferenced": true,
-    "defineConstraints": [],
-    "versionDefines": [],
-    "optionalUnityReferences": [
-        "TestAssemblies"
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll"
     ],
+    "autoReferenced": false,
+    "defineConstraints": [
+        "UNITY_INCLUDE_TESTS"
+    ],
+    "versionDefines": [],
     "noEngineReferences": false
 }
