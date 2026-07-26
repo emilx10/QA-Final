@@ -20,6 +20,14 @@ public class PlayerMoving : MonoBehaviour
     [Tooltip("Use the rendered background rectangle as the movement boundary when available.")]
     public bool useBackgroundAsBoundary = true;
 
+    [Header("Keyboard Movement")]
+    [Tooltip("Allow the player to move with the W, A, S, and D keys on desktop.")]
+    public bool enableWasdMovement = true;
+
+    [Min(0f)]
+    [Tooltip("Player movement speed in world units per second when using WASD.")]
+    public float keyboardMoveSpeed = 10f;
+
     Camera mainCamera;
     Renderer playerRenderer;
     Vector2 lastScreenSize;
@@ -47,7 +55,12 @@ public class PlayerMoving : MonoBehaviour
         if (controlIsActive)
         {
 #if UNITY_STANDALONE || UNITY_EDITOR
-            if (Input.GetMouseButton(0) && mainCamera != null)
+            Vector2 keyboardDirection = GetWasdDirection();
+            if (enableWasdMovement && keyboardDirection.sqrMagnitude > 0f)
+            {
+                transform.position += (Vector3)(keyboardDirection * keyboardMoveSpeed * Time.deltaTime);
+            }
+            else if (Input.GetMouseButton(0) && mainCamera != null)
             {
                 Vector3 mousePosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
                 mousePosition.z = transform.position.z;
@@ -67,6 +80,19 @@ public class PlayerMoving : MonoBehaviour
         }
 
         transform.position = ClampPosition(transform.position);
+    }
+
+    Vector2 GetWasdDirection()
+    {
+        float horizontal = 0f;
+        float vertical = 0f;
+
+        if (Input.GetKey(KeyCode.A)) horizontal -= 1f;
+        if (Input.GetKey(KeyCode.D)) horizontal += 1f;
+        if (Input.GetKey(KeyCode.S)) vertical -= 1f;
+        if (Input.GetKey(KeyCode.W)) vertical += 1f;
+
+        return Vector2.ClampMagnitude(new Vector2(horizontal, vertical), 1f);
     }
 
     public Vector3 ClampPosition(Vector3 position)

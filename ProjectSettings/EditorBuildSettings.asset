@@ -1,4 +1,4 @@
-﻿%YAML 1.1
+%YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
 --- !u!1045 &1
 EditorBuildSettings:
@@ -12,3 +12,4 @@ EditorBuildSettings:
     path: Assets/Space Shooter Template FREE/Scenes/Level_2.unity
     guid: 42db92711e224dbca68f883f91172394
   m_configObjects: {}
+  m_UseUCBPForAssetBundles: 0
